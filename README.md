@@ -65,12 +65,12 @@ You will use the keyword `speedy` with factory bot to define associations
 FactoryBot.define do
 
   factory :organization do
-    name 'Looney tunes'
+    name { 'Looney tunes' }
     speedy :address
   end
 
   factory :person do
-    name 'Sylvester'
+    name { 'Sylvester' }
     speedy :organization
     speedy :address
   end
