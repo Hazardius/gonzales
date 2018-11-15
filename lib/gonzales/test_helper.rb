@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -21,7 +22,7 @@
 # OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-require 'factory_girl'
+require 'factory_bot'
 module Gonzales
   # = Gonzales::TestHelper
   #
@@ -30,12 +31,12 @@ module Gonzales
     # returns a created record to be used in tests
     #
     # speedy will return the record from the database if it alreday exists in the test database.
-    # If not it will call FactoryGirl to instantiate the record.
+    # If not it will call FactoryBot to instantiate the record.
     #
     # === Arguments
     #
     #   * factory_name - Name of the factory or the alias specified in the gonzales file
-    #   * options - will be passed to FactoryGirl if the factory does not exist in the test database.
+    #   * options - will be passed to FactoryBot if the factory does not exist in the test database.
     #     Note!! options will not be passed to Gonzales. 
     #
     # === Example

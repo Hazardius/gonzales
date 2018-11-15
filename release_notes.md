@@ -1,3 +1,5 @@
+# Release notes
+
 ## 0.5.0
 
 * Initial gem release
@@ -17,3 +19,6 @@
 * speedy factory is now raising Gonzales::UndefinedAssociation if association is missing
   instead of undefined method `macro' for nil:NilClass
 
+## 0.7.0
+
+* From this version Gonzales supports Rails 4.

@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -31,7 +32,7 @@ module Gonzales
     # === Arguments
     #  * alias_name - optional alias name (can be used to reference factory or associations later)
     #  * factory_name - the name of the factory (use to reference factory or associations later if alias is not given)
-    #  * options - a hash to be passed to FactoryGirl when creating the record
+    #  * options - a hash to be passed to FactoryBot when creating the record
     #
     # === Examples
     #   Gonzales::Factories.load do |go|
@@ -44,13 +45,13 @@ module Gonzales
       alias_name = factory_or_alias_name
       options = args.extract_options!
       factory_name = args.first || alias_name
-      Collection.add alias_name, Factory.create(factory_name, options)
+      Collection.add alias_name, ::FactoryBot.create(factory_name, options)
     end
-    
+
     # Yields a block to define speedy statements, then saves a collection of references to a temporary file
     def self.load(&block)
       Collection.clear_cache
-      ::FactoryGirl.reload
+      ::FactoryBot.reload
       yield self
       Collection.save
     end

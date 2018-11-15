@@ -1,7 +1,7 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+# Read about factories at http://github.com/thoughtbot/factory_bot
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :wardrobe do
-    name "MyString"
+    name { 'MyString' }
   end
 end

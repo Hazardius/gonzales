@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -23,12 +24,11 @@
 
 require 'test_helper'
 
-class Gonzales::Adapter::UnregisteredTest < ActiveSupport::TestCase
+class Gonzales::Adapter::RegisteredTest < ActiveSupport::TestCase
   context 'Registered adapter' do
     should 'call speedy' do
-      Factory.expects(:create).with(:elmer, :fudd)
-      Gonzales::Adapter::Unregistered.create(:elmer, :fudd)
+      Gonzales::Factories.expects(:speedy).with(:elmer, :fudd)
+      Gonzales::Adapter::Registered.create(:elmer, :fudd)
     end
   end
-  
 end

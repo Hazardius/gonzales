@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -25,7 +26,7 @@ require 'active_support/configurable'
 require 'gonzales/exceptions'
 
 module Gonzales
-  # = Gonzales provides a mechanism for speeding up tests when using FactoryGirl
+  # = Gonzales provides a mechanism for speeding up tests when using FactoryBot
   #
   autoload :Adapter,    'gonzales/adapter'
   autoload :Collection, 'gonzales/collection'
@@ -33,7 +34,7 @@ module Gonzales
   autoload :TestHelper, 'gonzales/test_helper'
 
   include ActiveSupport::Configurable
-  
+
   # == Configurations
   #
   #   * factory_module  - the module containing the definitions of factories to be store in the test database.
@@ -83,7 +84,7 @@ module Gonzales
   end
 end
 
-require 'gonzales/factory_girl/definition_proxy'
-require 'factory_girl'
-FactoryGirl::DefinitionProxy.send(:include, Gonzales::FactoryGirl::DefinitionProxy)
+require 'gonzales/factory_bot/definition_proxy'
+require 'factory_bot'
+FactoryBot::DefinitionProxy.send(:include, Gonzales::FactoryBot::DefinitionProxy)
 ActiveSupport::TestCase.send(:include, Gonzales::TestHelper)

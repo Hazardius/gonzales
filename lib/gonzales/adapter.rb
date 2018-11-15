@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -27,9 +28,9 @@ module Gonzales
   #
   # Adapter for instantiating factories in database
   module Adapter
-    autoload :Registered,     'gonzales/adapter/registered'
-    autoload :Unregistered,   'gonzales/adapter/unregistered'
-    
+    autoload :Registered,   'gonzales/adapter/registered'
+    autoload :Unregistered, 'gonzales/adapter/unregistered'
+
     # Instantiates a record in the database with the defined factory. This is an internal method.
     #
     # The method will call either registered or unregistered adapter, depending on what was defined in the use method.
@@ -38,8 +39,8 @@ module Gonzales
       @@adapter ||= Unregistered
       @@adapter.create(factory_name, *options)
     end
-   
-    # Sets the adapter to be used for instantiating objects based on predefioned factories. Internal.
+
+    # Sets the adapter to be used for instantiating objects based on predefined factories. Internal.
     #
     def self.use(name)
       raise ArgumentError unless %w(registered unregistered).include? name.to_s

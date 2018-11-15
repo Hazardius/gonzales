@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -26,18 +27,18 @@ require 'test_helper'
 class Gonzales::FactoriesTest < ActiveSupport::TestCase
 
   context 'speedy' do
-    should 'set collection to factory created by factory girl' do
-      Factory.expects(:create).with('panchos', {}).returns('hideaway')
+    should 'set collection to factory created by factory bot' do
+      ::FactoryBot.expects(:create).with('panchos', {}).returns('hideaway')
       Gonzales::Collection.expects(:add).with('panchos', 'hideaway').twice
       Gonzales::Factories.speedy('panchos')
-      Factory.expects(:create).with('panchos', :merry => 'Melodies' ).returns('hideaway')
+      ::FactoryBot.expects(:create).with('panchos', :merry => 'Melodies' ).returns('hideaway')
       Gonzales::Factories.speedy('panchos', :merry => 'Melodies')
     end
     should 'support alias name' do
-      Factory.expects(:create).with('panchos', {}).returns('hideaway')
+      ::FactoryBot.expects(:create).with('panchos', {}).returns('hideaway')
       Gonzales::Collection.expects(:add).with('villa', 'hideaway').twice
       Gonzales::Factories.speedy('villa', 'panchos')
-      Factory.expects(:create).with('panchos', :merry => 'Melodies' ).returns('hideaway')
+      ::FactoryBot.expects(:create).with('panchos', :merry => 'Melodies' ).returns('hideaway')
       Gonzales::Factories.speedy('villa','panchos', :merry => 'Melodies')
     end
   end
@@ -45,7 +46,7 @@ class Gonzales::FactoriesTest < ActiveSupport::TestCase
   context 'load' do
     should 'yield context' do
       Gonzales::Collection.expects(:clear_cache).once
-      ::FactoryGirl.expects(:reload).once
+      ::FactoryBot.expects(:reload).once
       Gonzales::Collection.expects(:save).once
       Gonzales::Factories.load do |context|
         assert_equal Gonzales::Factories, context

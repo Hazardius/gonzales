@@ -6,8 +6,8 @@ class ShoeTest < ActiveSupport::TestCase
   end
   context 'loading shoe' do
     should 'not call factory' do
-      Factory.expects(:create).never
-      hat = speedy(:shoe)
+      ::FactoryBot.expects(:create).never
+      speedy(:shoe)
     end
   end
 end

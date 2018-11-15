@@ -1,11 +1,11 @@
-FactoryGirl.define do
-  factory :fabrick, :class => Material do
-    name "Fabrick"
+FactoryBot.define do
+  factory :fabric, class: Material do
+    name { 'Fabric' }
   end
-  factory :leader, :class => Material do
-    name "Leather"
+  factory :leather, class: Material do
+    name { 'Leather' }
   end
-  factory :rubber, :class => Material do
-    name "Rubber"
+  factory :rubber, class: Material do
+    name { 'Rubber' }
   end
 end

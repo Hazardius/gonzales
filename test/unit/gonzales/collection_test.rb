@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -24,19 +25,19 @@
 require 'test_helper'
 
 class Gonzales::CollectionTest < ActiveSupport::TestCase
-  
+
   setup do
     @coll = Gonzales::Collection
     @entities = stub('entities')
     @coll.stubs(:entities).returns(@entities)
   end
-    
+
   context 'private method' do
     context 'save' do
       should 'save file immediately, since destructor is a unknown thing in ruby' do
         @entities.expects(:to_yaml).returns('xyz')
         file = stub('file')
-        File.expects(:open).with(Rails.root.join('tmp','speedy.yml'), 'w+').yields(file)
+        File.expects(:open).with(Rails.root.join('tmp', 'speedy.yml'), 'w+').yields(file)
         file.expects(:write).with('xyz')
         @coll.send(:save)
       end
@@ -44,16 +45,16 @@ class Gonzales::CollectionTest < ActiveSupport::TestCase
     context 'load' do
       should 'load file from tmp' do
         Gonzales.factory_cache = nil
-        YAML.expects(:load_file).with( Rails.root.join('tmp','speedy.yml'))
+        YAML.expects(:load_file).with(Rails.root.join('tmp', 'speedy.yml'))
         @coll.send(:load)
       end
       should 'handle that file does not exist' do
       end
     end
   end
-  
+
   context 'public method' do
-    context 'add' do      
+    context 'add' do
       should 'store entity' do
         class Entity
           def id
@@ -84,5 +85,4 @@ class Gonzales::CollectionTest < ActiveSupport::TestCase
       end
     end
   end
-  
 end

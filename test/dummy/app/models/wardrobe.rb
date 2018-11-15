@@ -1,3 +1,8 @@
 class Wardrobe < ActiveRecord::Base
-  attr_accessible :name
+  def name=(val)
+    self[:name] = val
+  end
+  def name
+    self[:name]
+  end
 end

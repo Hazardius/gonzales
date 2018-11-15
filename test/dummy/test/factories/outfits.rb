@@ -1,14 +1,14 @@
-# Read about factories at http://github.com/thoughtbot/factory_girl
+# Read about factories at http://github.com/thoughtbot/factory_bot
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :outfit do
-    style "Mexican"
+    style { 'Mexican' }
     speedy :shoe, :boot
     speedy :hat, :sombrero
     alternative_hats { |outfit| [outfit.association(:stetson)]  }
   end
-  factory :girl_outfit, :class => Outfit do
-    style "Mexican"
+  factory :girl_outfit, class: Outfit do
+    style { 'Mexican' }
     speedy :shoe
     speedy :hat
     speedy :alternative_hats, :sombrero

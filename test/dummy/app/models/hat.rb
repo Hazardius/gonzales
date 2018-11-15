@@ -1,3 +1,15 @@
 class Hat < ActiveRecord::Base
-  attr_accessible :brim_type, :size
+  def brim_type=(val)
+    self[:brim_type] = val
+  end
+  def brim_type
+    self[:brim_type]
+  end
+
+  def size=(val)
+    self[:size] = val
+  end
+  def size
+    self[:size]
+  end
 end

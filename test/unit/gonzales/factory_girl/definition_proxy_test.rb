@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -23,24 +24,27 @@
 
 require 'test_helper'
 
-class Gonzales::FactoryGirl::DefinitionProxyTest < ActiveSupport::TestCase
+class Gonzales::FactoryBot::DefinitionProxyTest < ActiveSupport::TestCase
 
   class DefinitionProxyTest
-    include Gonzales::FactoryGirl::DefinitionProxy
+    include Gonzales::FactoryBot::DefinitionProxy
     
     attr_accessor :sylvester
     attr_accessor :cartoons
-    
-    def after_build
-      yield self
+
+    def after(stage)
+      if stage == :build
+        yield self
+      else
+        fail "only :build is supported"
+      end
     end
   end
-  
+
   setup do
     @proxy = DefinitionProxyTest.new
   end
-  
-  
+
   context 'speedy association' do
     setup do
       @proxy.sylvester = nil
@@ -93,7 +97,7 @@ class Gonzales::FactoryGirl::DefinitionProxyTest < ActiveSupport::TestCase
       DefinitionProxyTest.expects(:reflect_on_association).with(:cartoons).returns(reflection)
       Gonzales::Collection.expects(:entity).with(:sylvester).returns(:cat)
       Gonzales::Collection.expects(:entity).with(:elmer).returns(:man)
-      Factory.expects(:create).never
+      ::FactoryBot.expects(:create).never
       @proxy.speedy(:cartoons, :sylvester, :elmer)
       assert_equal [:cat, :man], @proxy.cartoons, "Association failed for macro: #{macro}"
     end
@@ -103,10 +107,9 @@ class Gonzales::FactoryGirl::DefinitionProxyTest < ActiveSupport::TestCase
       reflection = stub('reflection', :macro => macro)
       DefinitionProxyTest.expects(:reflect_on_association).with(:cartoons).returns(reflection)
       Gonzales::Collection.expects(:entity).never
-      Factory.expects(:create).never
+      ::FactoryBot.expects(:create).never
       @proxy.speedy(:cartoons, :sylvester)
       assert_equal [:dog], @proxy.cartoons, "Association failed for macro: #{macro}"
     end
   end
-  
 end

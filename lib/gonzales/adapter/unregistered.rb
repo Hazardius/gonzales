@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -30,7 +31,7 @@ module Gonzales
       # The record will not be registered in the collection when created.
       #
       def self.create(factory_name, *options)
-        Factory.create(factory_name, *options)
+        ::FactoryBot.create(factory_name, *options)
       end
     end
   end

@@ -9,7 +9,7 @@ class OutfitTest < ActiveSupport::TestCase
     context 'loading outfit' do
       should 'invoke factory for it and not for boot' do
         Gonzales::Adapter.expects(:create).with(:outfit)
-        outfit = speedy(:outfit)
+        speedy(:outfit)
       end
       should 'invoke factory for hat, but not for shoe' do
         Hat.expects(:find).never
@@ -25,9 +25,9 @@ class OutfitTest < ActiveSupport::TestCase
         assert_equal 'Cool', outfit.alternative_hats.first.brim_type
       end
     end
-    context 'exploring factory_girl' do
+    context 'exploring factory_bot' do
       should 'explore possibilities' do
-        outfit = speedy(:girl_outfit)    
+        outfit = speedy(:girl_outfit)
         assert_equal 'Fat', outfit.hat.brim_type
         assert_equal 'Classy', outfit.shoe.name
         assert_equal 1, outfit.alternative_hats.size
@@ -43,7 +43,7 @@ class OutfitTest < ActiveSupport::TestCase
       Gonzales.initialize!
     end
     teardown do
-      Gonzales.disable_preload = false      
+      Gonzales.disable_preload = false
       Gonzales.adapter = :unregistered
     end
     context 'using registered adapter' do
@@ -69,6 +69,4 @@ class OutfitTest < ActiveSupport::TestCase
       end
     end
   end
-  
 end
-

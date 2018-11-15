@@ -6,9 +6,8 @@ class HatTest < ActiveSupport::TestCase
   end
   context 'loading hat' do
     should 'not call factory' do
-      Factory.expects(:create).never
-      hat = speedy(:hat)
+      ::FactoryBot.expects(:create).never
+      speedy(:hat)
     end
   end
-  
 end

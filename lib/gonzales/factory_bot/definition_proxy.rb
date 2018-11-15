@@ -1,6 +1,7 @@
 # Copyright (c) 2012 Bingo Entreprenøren AS
-# Copyright (c) 2012 Teknobingo Scandinavia AS
+# Copyright (c) 2012-2018 Teknobingo Scandinavia AS
 # Copyright (c) 2012 Knut I. Stenmark
+# Copyright (c) 2018 Marcin M. Hanc
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -22,10 +23,10 @@
 # WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module Gonzales
-  module FactoryGirl
-    # = Gonzales::FactoryGirl::DefinitionProxy
+  module FactoryBot
+    # = Gonzales::FactoryBot::DefinitionProxy
     #
-    # Extends FactoryGirl with a new extension
+    # Extends FactoryBot with a new extension
     module DefinitionProxy
       # Define an association in a factory.
       # Supports belongs_to and has_and_belongs_to_many associations
@@ -41,11 +42,11 @@ module Gonzales
       #   
       #  * association_name - the name of the association
       #  * factory_name - the name of the factory (if the factory has the same name as the association, this parameter is optional)
-      #  * options - a hash to be passed to FactoryGirl when creating the record using factory
+      #  * options - a hash to be passed to FactoryBot when creating the record using factory
       #
       # === Examples
       #
-      #    FactoryGirl.define do
+      #    FactoryBot.define do
       #      factory :organization do
       #        name "Looney tunes"
       #        speedy :contact                                      # association to contact (belongs_to :contact), 
@@ -58,9 +59,9 @@ module Gonzales
       def speedy(attribute_or_factory, *args)
         attribute = attribute_or_factory
         options = args.extract_options!
-        after_build do |r|
+        after(:build) do |r|
           begin
-            if r.class.reflect_on_association(attribute).macro.to_s.include? 'has_and_belongs_to_many'
+            if r.class.reflect_on_association(attribute).macro.to_s.include?('has_and_belongs_to_many')
               if r.send(attribute).size == 0
                 factory_names = args.size > 0 ? args : [attribute]
                 r.send("#{attribute}=",
@@ -79,7 +80,6 @@ module Gonzales
           end
         end
       end
-
     end
   end
 end
